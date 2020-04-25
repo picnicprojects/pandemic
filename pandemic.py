@@ -15,7 +15,7 @@ class Person():
       self.index = i
       self.age = 30
       self.state = HEALTHY
-      self.T_incubation = 10 #days
+      self.T_incubation = 8 #days
       self.T0 = 0 # infection day
       self.x = random.random()
       self.y = random.random()
@@ -42,18 +42,18 @@ class Person():
 class DistanceMatrix():
    def __init__(self,n):
       self._n = n
-      self.vx = np.zeros((n))
-      self.vy = np.zeros((n))
+      self._x = np.zeros((n))
+      self._y = np.zeros((n))
    
    def update(self,i,x,y):
-      self.vx[i] = x
-      self.vy[i] = y
+      self._x[i] = x
+      self._y[i] = y
       
    def get_hits(self):
       distance  = np.zeros((self._n,self._n))
       for i in range(self._n):
          for j in range(self._n):
-            distance[i,j] = math.sqrt((self.vx[i] - self.vx[j])**2 + (self.vy[i] - self.vy[j])**2)
+            distance[i,j] = math.sqrt((self._x[i] - self._x[j])**2 + (self._y[i] - self._y[j])**2)
       a = []
       for i in range(self._n):
          for j in range(self._n):
@@ -96,6 +96,7 @@ class Pandemic():
             if (self.person[j].state == HEALTHY) and (self.person[i].state == CONTAGIOUS):
                self.person[j].state = CONTAGIOUS
                self.person[j].T0 = day
+
          # Plot
          for person in self.person:
             if hasattr(person, 'previous'):
