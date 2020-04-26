@@ -1,3 +1,3 @@
 Very simple pandemic simulation<br>
 
-[![alt text](pandemic.gif)]
+![simulation result](pandemic.gif)
