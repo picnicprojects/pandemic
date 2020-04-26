@@ -1,6 +1,4 @@
-import math
-import datetime
-import random
+import math, os, datetime, random
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -99,11 +97,12 @@ class Pandemic():
                person.previous, = plt.plot(person.x,person.y,color[person.state])
             plt.title('day %d' % day)
             plt.axis([0,1,0,1])
-            plt.savefig('day%03d.png' % day)
+            plt.savefig('img/day%03d.png' % day)
             plt.pause(0.000001)
       plt.show(block = False)
             
 if __name__ == '__main__':
+   os.makedirs('img', exist_ok=True)
    t = 100
    pandemic = Pandemic(t)
    pandemic.run()
@@ -111,6 +110,6 @@ if __name__ == '__main__':
    import imageio
    images = []
    for i in range(t):
-      filename = 'day%03d.png'%i
+      filename = 'img/day%03d.png'%i
       images.append(imageio.imread(filename))
    imageio.mimsave('pandemic.gif', images)
