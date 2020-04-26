@@ -63,9 +63,9 @@ class DistanceMatrix():
       return(a)         
       
 class Pandemic():
-   def __init__(self):
-      self.n = 100          # persons
-      self.T_duration = 100 # days
+   def __init__(self,days):
+      self.n = 100           # persons
+      self.T_duration = days # days
       self.person = []
       for i in range(self.n):
          self.person.append(Person(i))
@@ -98,10 +98,19 @@ class Pandemic():
                   person.previous.remove()
                person.previous, = plt.plot(person.x,person.y,color[person.state])
             plt.title('day %d' % day)
+            plt.axis([0,1,0,1])
+            plt.savefig('day%03d.png' % day)
             plt.pause(0.000001)
-      plt.show()
+      plt.show(block = False)
             
 if __name__ == '__main__':
-   pandemic = Pandemic()
+   t = 100
+   pandemic = Pandemic(t)
    pandemic.run()
    
+   import imageio
+   images = []
+   for i in range(t):
+      filename = 'day%03d.png'%i
+      images.append(imageio.imread(filename))
+   imageio.mimsave('pandemic.gif', images)
